@@ -10,7 +10,7 @@ output "private_subnet_ids" {
   value = module.vpc.private_subnet_ids
 }
 
-output "security_group_id" {
+output "fargate_security_group_id" {
   value = module.security_group.security_group_id
 }
 
