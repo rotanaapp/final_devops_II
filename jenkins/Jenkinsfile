@@ -17,7 +17,7 @@ pipeline {
             steps {
                 script {
                     checkout([$class: 'GitSCM',
-                        userRemoteConfigs: [[url: 'https://github.com/your-repo.git']],
+                        userRemoteConfigs: [[url: 'https://github.com/rotanaapp/final_devops_II.git']],
                         branches: [[name: "*/${params.BRANCH_NAME}"]],
                         doGenerateSubmoduleConfigurations: false,
                         submoduleCfg: [],
