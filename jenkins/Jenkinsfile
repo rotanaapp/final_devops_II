@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        ECR_REPO = 'https://us-east-1.console.aws.amazon.com/ecr/repositories/private/471112848311/devops_final-repository?region=us-east-1'
+        ECR_REPO = '471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository'
         AWS_REGION = 'us-west-2'
     }
 
@@ -31,10 +31,10 @@ pipeline {
             steps {
                 script {
                     def appName = params.MICROSERVICE
-                    // sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ./${appName}/"
-                    sh "docker build -t ${ECR_REPO}/devops_final-repository:${env.BUILD_NUMBER} ./${appName}/"
+                    sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ./${appName}/"
+                    sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ./${appName}/"
                     sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}"
-                    sh "docker push ${ECR_REPO}/devops_final-repository:${env.BUILD_NUMBER}"
+                    sh "docker push ${ECR_REPO}/${appName}:${env.BUILD_NUMBER}"
                 }
             }
         }
