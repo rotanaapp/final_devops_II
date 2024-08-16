@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        ECR_REPO = 'your-ecr-repo'
+        ECR_REPO = 'https://us-east-1.console.aws.amazon.com/ecr/repositories/private/471112848311/devops_final-repository?region=us-east-1'
         AWS_REGION = 'us-west-2'
     }
 
