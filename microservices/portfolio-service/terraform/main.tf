@@ -27,7 +27,7 @@ resource "aws_ecs_service" "portfolio_service" {
   launch_type     = "FARGATE"
   network_configuration {
     subnets          = var.subnet_ids
-    security_groups  = [var.security_group_id]
+    security_groups  = [var.fargate_security_group_id, var.lb_security_group_id]
     assign_public_ip = true
   }
 }

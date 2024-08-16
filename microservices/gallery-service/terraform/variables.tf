@@ -28,7 +28,11 @@ variable "subnet_ids" {
   description = "List of subnet IDs for ECS service"
 }
 
-variable "security_group_id" {
+variable "fargate_security_group_id" {
+  type        = string
+  description = "ID of the security group"
+}
+variable "lb_security_group_id" {
   type        = string
   description = "ID of the security group"
 }
