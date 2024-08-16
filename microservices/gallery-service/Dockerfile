@@ -1,7 +1,14 @@
-# Dockerfile content for the gallery service
-FROM amazonlinux:2
-WORKDIR /app
-COPY src/ /app/
-RUN yum install -y python3
-RUN pip3 install -r requirements.txt
-CMD ["python3", "app.py"]
+# Use the official Nginx image to serve static content
+FROM nginx:alpine
+
+# Remove default Nginx website
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy the static HTML files from your src directory to the Nginx web root
+COPY ./src /usr/share/nginx/html
+
+# Expose port 80 for the web server
+EXPOSE 80
+
+# Start Nginx in the foreground
+CMD ["nginx", "-g", "daemon off;"]
