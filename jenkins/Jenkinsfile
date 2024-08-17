@@ -23,24 +23,24 @@ pipeline {
             }
         }
 
-        stage('Checkout') {
-            steps {
-                script {
-                    try {
-                        echo "Checking out branch: ${params.BRANCH_NAME}"
-                        checkout([$class: 'GitSCM',
-                            userRemoteConfigs: [[url: 'https://github.com/rotanaapp/final_devops_II.git']],
-                            branches: [[name: "*/${params.BRANCH_NAME}"]],
-                            doGenerateSubmoduleConfigurations: false,
-                            submoduleCfg: [],
-                            extensions: []
-                        ])
-                    } catch (Exception e) {
-                        error "Failed to checkout branch: ${params.BRANCH_NAME}. Error: ${e.getMessage()}"
-                    }
-                }
-            }
-        }
+        // stage('Checkout') {
+        //     steps {
+        //         script {
+        //             try {
+        //                 echo "Checking out branch: ${params.BRANCH_NAME}"
+        //                 checkout([$class: 'GitSCM',
+        //                     userRemoteConfigs: [[url: 'https://github.com/rotanaapp/final_devops_II.git']],
+        //                     branches: [[name: "*/${params.BRANCH_NAME}"]],
+        //                     doGenerateSubmoduleConfigurations: false,
+        //                     submoduleCfg: [],
+        //                     extensions: []
+        //                 ])
+        //             } catch (Exception e) {
+        //                 error "Failed to checkout branch: ${params.BRANCH_NAME}. Error: ${e.getMessage()}"
+        //             }
+        //         }
+        //     }
+        // }
         stage('Build Image') {
             steps {
                 script {
