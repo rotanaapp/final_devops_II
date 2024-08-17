@@ -30,9 +30,10 @@ pipeline {
 
         stage('Build and Push Docker Image') {
             steps {
-                // echo "${DOCKER_DIR}/${appName}/"
                 script {
                     echo "Success"
+                    echo '${DOCKER_DIR}/${appName}/'
+
 
                 //     def appName = params.MICROSERVICE
                 //     // sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ./${appName}/"
