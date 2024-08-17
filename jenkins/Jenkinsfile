@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     def appName = params.MICROSERVICE
-                    sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${env.DOCKER_DIR}/${appName}/Dockerfile ./${appName} ."
+                    sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${env.DOCKER_DIR}/${appName}/Dockerfile /${appName} ."
                 }
             }
         }
