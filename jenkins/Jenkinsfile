@@ -34,11 +34,12 @@ pipeline {
                     def appName = params.MICROSERVICE
                     def imageTag = "${appName}:${env.BUILD_NUMBER}"
                     
-                    sh "docker build -t ${imageTag} -f ${env.DOCKER_DIR}/${appName}/Dockerfile ."
+                    // Note: Build context is set as '.' assuming Dockerfile is in a subdirectory
+                    sh "docker buildx build -t ${imageTag} -f ${env.DOCKER_DIR}/${appName}/Dockerfile ."
                 }
             }
         }
-
+        
         stage('Push Image') {
             steps {
                 script {
