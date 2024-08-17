@@ -32,6 +32,6 @@ resource "aws_ecs_service" "portfolio_service" {
   }
 }
 
-output "service_name" {
+output "service_name_portfolio-service" {
   value = aws_ecs_service.portfolio_service.name
 }

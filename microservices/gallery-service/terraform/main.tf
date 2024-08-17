@@ -32,6 +32,6 @@ resource "aws_ecs_service" "gallery_service" {
   }
 }
 
-output "service_name" {
+output "service_name_gallery-service" {
   value = aws_ecs_service.gallery_service.name
 }
