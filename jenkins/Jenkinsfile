@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        DOCKER_DIR = '/var/lib/jenkins/workspace/DevOps/'
         ECR_REPO = '471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository'
         AWS_REGION = 'us-east-1'
     }
@@ -30,14 +31,14 @@ pipeline {
         stage('Build and Push Docker Image') {
             steps {
                 echo "Success"
-                // script {
-                //     def appName = params.MICROSERVICE
-                //     // sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ./${appName}/"
-                //     sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} ./${appName}/"
-                //     // sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}"
-                //     sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 471112848311.dkr.ecr.us-east-1.amazonaws.com"
-                //     sh "docker push ${ECR_REPO}:${env.BUILD_NUMBER}"
-                // }
+                script {
+                    def appName = params.MICROSERVICE
+                    // sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ./${appName}/"
+                    sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${DOCKER_DIR} ./${appName}/"
+                    // sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}"
+                    sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 471112848311.dkr.ecr.us-east-1.amazonaws.com"
+                    sh "docker push ${ECR_REPO}:${env.BUILD_NUMBER}"
+                }
                 // script {
                 //     def appName = params.MICROSERVICE
                 //     def terraformDir = "${appName}/"
