@@ -5,8 +5,8 @@ pipeline {
         DOCKER_DIR = '/var/lib/jenkins/workspace/DevOps/microservices'
         ECR_REPO = '471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository'
         AWS_REGION = 'us-east-1'
-        aws_access_key_id = "AKIAW3MEDSO3YMMRMN3Z"
-        aws_secret_access_key = "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"
+        AWS_ACCESS_KEY_ID = credentials('aws-access-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
     }
 
     parameters {
@@ -46,8 +46,8 @@ pipeline {
                     // }
 
                     sh """
-                        aws configure set aws_access_key_id ${env.aws_access_key_id}
-                        aws configure set aws_secret_access_key ${env.aws_secret_access_key}
+                        aws configure set aws_access_key_id ${env.AWS_ACCESS_KEY_ID}
+                        aws configure set aws_secret_access_key ${env.AWS_SECRET_ACCESS_KEY}
                         aws configure set region ${env.AWS_REGION}
 
                         aws ecr get-login-password --region ${env.AWS_REGION}} | docker login --username AWS --password-stdin 471112848311.dkr.ecr.us-east-1.amazonaws.com
