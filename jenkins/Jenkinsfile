@@ -36,7 +36,7 @@ pipeline {
                     def appName = params.MICROSERVICE
                     
                     // Build Docker image
-                    sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f /${appName}/Dockerfile ./${appName}"
+                    sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${env.DOCKER_DIR}/${appName}/Dockerfile ."
 
                     sh """
                         aws configure set aws_access_key_id ${env.AWS_ACCESS_KEY_ID}
