@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     echo "Success"
-                    echo "${env.DOCKER_DIR}/${env.appName}/"
+                    echo "${env.DOCKER_DIR}/${appName}/"
 
 
                 //     def appName = params.MICROSERVICE
