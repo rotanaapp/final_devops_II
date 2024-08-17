@@ -5,8 +5,8 @@ pipeline {
         DOCKER_DIR = '/var/lib/jenkins/workspace/DevOps/microservices'
         ECR_REPO = '471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository'
         AWS_REGION = 'us-east-1'
-        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_ACCESS_KEY_ID = credentials('ws_access_key_id')
+        AWS_SECRET_ACCESS_KEY = credentials('aws_secret_access_key')
     }
 
     parameters {
