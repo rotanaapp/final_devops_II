@@ -46,13 +46,16 @@ pipeline {
                 }
             }
         }
-
-        stage('Deployment') {
+        stage('Deploy') {
             steps {
                 script {
-                    
+                    def appName = params.MICROSERVICE
+                    def terraformDir = "${appName}/terraform/"
+                    dir(terraformDir) {
+                        sh "terraform init"
+                        sh "terraform apply -var=\"image=${ECR_REPO}/${appName}:${env.BUILD_NUMBER}\" -auto-approve"
+                    }
                 }
             }
-        }
     }
 }
