@@ -5,6 +5,8 @@ pipeline {
         DOCKER_DIR = '/var/lib/jenkins/workspace/DevOps/microservices'
         ECR_REPO = '471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository'
         AWS_REGION = 'us-east-1'
+        aws_access_key_id = "AKIAW3MEDSO3YMMRMN3Z"
+        aws_secret_access_key = "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"
     }
 
     parameters {
@@ -48,14 +50,12 @@ pipeline {
                         aws configure set aws_secret_access_key ${env.aws_secret_access_key}
                         aws configure set region ${env.AWS_REGION}
 
-                        # Authenticate Docker to ECR
                         aws ecr get-login-password --region ${env.AWS_REGION}} | docker login --username AWS --password-stdin 471112848311.dkr.ecr.us-east-1.amazonaws.com
                         #docker push ${env.AWS_ECR_REPOSITORY}/${env.ECR_IMAGE}:${params.TAG}
+                        docker push ${ECR_REPO}:${env.BUILD_NUMBER}
                       """
 
                     // Push Docker image to ECR
-                    sh "docker push ${ECR_REPO}:${env.BUILD_NUMBER}"
-                }
             }
         }
 
