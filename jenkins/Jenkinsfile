@@ -34,7 +34,7 @@ pipeline {
                     def appName = params.MICROSERVICE
                     
                     // Build Docker image
-                    sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${env.DOCKER_DIR}/Dockerfile ./${appName}"
+                    sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${env.DOCKER_DIR}/${appName}/Dockerfile ./${appName}"
                     
 
                     // Push Docker image to ECR
