@@ -31,11 +31,9 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    def appName = params.MICROSERVICE
-                    // def imageTag = "${ECR_REPO}:${appName}_${env.BUILD_NUMBER}"
-                    sh "docker build -f /var/lib/jenkins/workspace/DevOps_II/microservices/gallery-service/Dockerfile -t 471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository:latest /var/lib/jenkins/workspace/DevOps_II/microservices/gallery-service"
-                    
+                    // def appName = params.MICROSERVICE
                     // sh "docker build -f ${env.DOCKER_DIR}/${appName}/Dockerfile -t ${imageTag} ${env.DOCKER_DIR}/${appName}"
+                    sh "docker build -f /var/lib/jenkins/workspace/DevOps_II/microservices/gallery-service/Dockerfile -t 471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository:latest /var/lib/jenkins/workspace/DevOps_II/microservices/gallery-service"                    
                 }
             }
         }
