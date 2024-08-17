@@ -11,7 +11,7 @@ COPY src/app/package*.json ./
 RUN npm install
 
 # Copy the rest of the application files to the working directory
-COPY src/ ./
+COPY src/app/ ./
 
 # Build the application
 RUN npm run build
