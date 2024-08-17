@@ -5,8 +5,6 @@ pipeline {
         DOCKER_DIR = '/var/lib/jenkins/workspace/DevOps/microservices'
         ECR_REPO = '471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository'
         AWS_REGION = 'us-east-1'
-        AWS_ACCESS_KEY_ID = credentials('aws-access-key-id')
-        AWS_SECRET_ACCESS_KEY = credentials('aws-secret-access-key')
     }
 
     parameters {
@@ -36,8 +34,8 @@ pipeline {
                     def appName = params.MICROSERVICE
                     
                     // Build Docker image
-                    sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${env.DOCKER_DIR}/${appName}/Dockerfile ."
-
+                    sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${env.DOCKER_DIR}/Dockerfile ./${appName}"
+                    
 
                     // Push Docker image to ECR
             }
