@@ -6,19 +6,21 @@ pipeline {
         ECR_REPO = '471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository'
         AWS_REGION = 'us-east-1'
     }
+    
     parameters {
         choice(name: 'MICROSERVICE', choices: ['portfolio-service', 'gallery-service'], description: 'Microservice to deploy')
         choice(name: 'BRANCH_NAME', choices: ['dev', 'uat', 'prod'], description: 'Branch to deploy')
         string(name: 'GIT_TAG', defaultValue: 'latest', description: 'Git tag for deployment')
     }
+    
     stages {
         stage('Checkout') {
             steps {
                 script {
                     checkout([
                         $class: 'GitSCM',
-                        userRemoteConfigs: [[url: 'https://github.com/rotanaapp/final_devops_II.git']],
-                        branches: [[name: "*/${params.BRANCH_NAME}"]],
+                        userRemoteConfigs: [url: 'https://github.com/rotanaapp/final_devops_II.git'],
+                        branches: [name: "*/${params.BRANCH_NAME}"],
                         doGenerateSubmoduleConfigurations: false,
                         submoduleCfg: [],
                         extensions: []
