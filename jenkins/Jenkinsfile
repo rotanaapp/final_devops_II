@@ -32,7 +32,9 @@ pipeline {
             steps {
                 echo "${DOCKER_DIR}/${appName}/"
                 echo "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${DOCKER_DIR}/${appName}/ ./${appName}/"
-                // script {
+                script {
+                    echo "Success"
+
                 //     def appName = params.MICROSERVICE
                 //     // sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ./${appName}/"
                 //     sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${DOCKER_DIR}/${appName}/ ./${appName}/"
@@ -47,13 +49,13 @@ pipeline {
                 //         sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} ./${appName}/"
                 //         sh "terraform apply -var=\"image=${ECR_REPO}/${appName}:${env.BUILD_NUMBER}\" -auto-approve"
                 //     }
-                // }
+                }
             }
         }
 
         stage('Deploy') {
-            echo "Success"
-            // steps {
+            steps {
+                echo "Success"
             //     script {
             //         def appName = params.MICROSERVICE
             //         def terraformDir = "${appName}/terraform/"
@@ -62,7 +64,7 @@ pipeline {
             //             sh "terraform apply -var=\"image=${ECR_REPO}/${appName}:${env.BUILD_NUMBER}\" -auto-approve"
             //         }
             //     }
-            // }
+            }
         }
     }
 }
