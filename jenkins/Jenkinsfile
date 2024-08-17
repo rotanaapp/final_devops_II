@@ -32,9 +32,14 @@ pipeline {
             steps {
                 script {
                     def appName = params.MICROSERVICE
+                    
+                    // Build Docker image
                     sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${env.DOCKER_DIR}/${appName}/Dockerfile ./${appName}"
-                    // sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}"
-                    sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 471112848311.dkr.ecr.us-east-1.amazonaws.com"
+                    
+                    // Log in to ECR
+                    sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}"
+
+                    // Push Docker image to ECR
                     sh "docker push ${ECR_REPO}:${env.BUILD_NUMBER}"
                 }
             }
