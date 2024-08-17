@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         ECR_REPO = '471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository'
-        AWS_REGION = 'us-west-2'
+        AWS_REGION = 'us-east-1'
     }
 
     parameters {
@@ -31,8 +31,8 @@ pipeline {
             steps {
                 script {
                     def appName = params.MICROSERVICE
-                    sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ./${appName}/"
-                    sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ./${appName}/"
+                    // sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ./${appName}/"
+                    sh "docker build -t ${ECR_REPO}/${appName}:${env.BUILD_NUMBER} ."
                     sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}"
                     sh "docker push ${ECR_REPO}/${appName}:${env.BUILD_NUMBER}"
                 }
