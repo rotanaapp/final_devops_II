@@ -32,9 +32,35 @@ pipeline {
             steps {
                 script {
                     def appName = params.MICROSERVICE
-                    sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${env.DOCKER_DIR}/${appName}/Dockerfile /${appName} ."
+                    def imageTag = "${ECR_REPO}:${appName}_${env.BUILD_NUMBER}"
+                    
+                    // Note: Build context is set as '.' assuming Dockerfile is in a subdirectory
+                    // sh "docker buildx build -t ${imageTag} -f ${env.DOCKER_DIR}/${appName}/Dockerfile ."
+                    sh " docker build -f ${env.DOCKER_DIR}/${appName}/Dockerfile -t ${imageTag} ${env.DOCKER_DIR}/${appName}"
+                    // docker build -f ${env.DOCKER_DIR}/${appName}/Dockerfile -t 471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository:latest /var/lib/jenkins/workspace/DevOps_II/microservices/gallery-service
                 }
             }
         }
+
+        stage('Push Image') {
+            steps {
+                script {
+                    def appName = params.MICROSERVICE
+                    sh "aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${ECR_REPO}"
+                    sh "docker push ${ECR_REPO}:${env.BUILD_NUMBER}"
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    def appName = params.MICROSERVICE
+                    def terraformDir = "${appName}/terraform/"
+                    dir(terraformDir) {
+                        sh "terraform init"
+                        sh "terraform apply -var=\"image=${ECR_REPO}/${appName}:${env.BUILD_NUMBER}\" -auto-approve"
+                    }
+                }
+            }
     }
 }
