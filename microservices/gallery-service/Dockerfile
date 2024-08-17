@@ -5,7 +5,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy the static HTML files from your src directory to the Nginx web root
-COPY ./src /usr/share/nginx/html
+COPY ./gallery-service/src /usr/share/nginx/html
 
 # Expose port 80 for the web server
 EXPOSE 80
