@@ -34,9 +34,7 @@ pipeline {
                     def appName = params.MICROSERVICE
                     def imageTag = "${ECR_REPO}:${appName}_${env.BUILD_NUMBER}"
                     
-                    // Note: Build context is set as '.' assuming Dockerfile is in a subdirectory
-                    // sh "docker buildx build -t ${imageTag} -f ${env.DOCKER_DIR}/${appName}/Dockerfile ."
-                    sh " docker build -f ${env.DOCKER_DIR}/${appName}/Dockerfile -t ${imageTag} ${env.DOCKER_DIR}/${appName}"
+                    sh "docker build -f ${env.DOCKER_DIR}/${appName}/Dockerfile -t ${imageTag} ${env.DOCKER_DIR}/${appName}"
                     // docker build -f ${env.DOCKER_DIR}/${appName}/Dockerfile -t 471112848311.dkr.ecr.us-east-1.amazonaws.com/devops_final-repository:latest /var/lib/jenkins/workspace/DevOps_II/microservices/gallery-service
                 }
             }
