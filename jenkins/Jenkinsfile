@@ -33,7 +33,7 @@ pipeline {
                 script {
                     echo "Success"
 
-                    def appName = params.MICROSERVICE
+                    // def appName = params.MICROSERVICE
                     
                     // Build Docker image
                     // sh "docker build -t ${ECR_REPO}:${env.BUILD_NUMBER} -f ${env.DOCKER_DIR}/${appName}/Dockerfile ./${appName}"
